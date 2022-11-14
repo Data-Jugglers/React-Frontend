@@ -140,13 +140,13 @@ export default function V1() {
         backgroundColor: "rgba(15, 15, 32, 0.5)",
       },
       {
-        label: "Dataset 4",
+        label: "Dataset 5",
         data: dataSet(5),
         borderColor: "rgb(15, 213, 32)",
         backgroundColor: "rgba(15, 213, 32, 0.5)",
       },
       {
-        label: "Dataset 4",
+        label: "Dataset 6",
         data: dataSet(6),
         borderColor: "rgb(88, 15, 32)",
         backgroundColor: "rgba(88, 15, 32, 0.5)",
