@@ -38,7 +38,13 @@
 }
 
 .container {
-  margin-top: 0px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.canvas {
+  width: 100%
 }
 
 footer .container {

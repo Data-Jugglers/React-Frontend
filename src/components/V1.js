@@ -67,6 +67,8 @@ export default function V1() {
         text: "Chart.js Line Chart",
       },
     },
+    borderWidth: 1,
+    pointRadius: 0,
   };
 
   const dataSet = (int) => {
@@ -119,37 +121,31 @@ export default function V1() {
         label: "Dataset 1",
         data: result1.map((item) => item.data),
         borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
       {
         label: "Dataset 2",
         data: result2.map((item) => item.data),
         borderColor: "rgb(45, 199, 232)",
-        backgroundColor: "rgba(45, 199, 132, 0.5)",
       },
       {
         label: "Dataset 3",
         data: result3.map((item) => item.data),
         borderColor: "rgb(2, 233, 32)",
-        backgroundColor: "rgba(2, 233, 32, 0.5)",
       },
       {
         label: "Dataset 4",
         data: dataSet(4),
         borderColor: "rgb(15, 15, 32)",
-        backgroundColor: "rgba(15, 15, 32, 0.5)",
       },
       {
         label: "Dataset 5",
         data: dataSet(5),
-        borderColor: "rgb(15, 213, 32)",
-        backgroundColor: "rgba(15, 213, 32, 0.5)",
+        borderColor: "rgb(155, 130, 213)",
       },
       {
         label: "Dataset 6",
         data: dataSet(6),
         borderColor: "rgb(88, 15, 32)",
-        backgroundColor: "rgba(88, 15, 32, 0.5)",
       },
     ],
   };
