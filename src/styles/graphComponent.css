@@ -1,5 +1,25 @@
 .graphContainer {
-    display: flex;
-    flex-flow: column;
-    width: 100%;
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  gap: 10px;
+}
+
+.graphDescription {
+  font-size: 18px;
+}
+
+.description {
+  margin: 0;
+}
+
+.graphLinks {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.link {
+  margin: 0;
 }
