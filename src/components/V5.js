@@ -26,7 +26,7 @@ export default function V5() {
       },
       title: {
         display: true,
-        text: "Historic temperature anomalies",
+        text: "Historic CO2 concentration in air",
         font: {
           size: 18,
         },
@@ -36,10 +36,7 @@ export default function V5() {
     pointRadius: 0,
     scales: {
       x: {
-        type: "time",
-        time: {
-          unit: "year",
-        },
+        type: "linear",
       },
     },
   };
@@ -54,7 +51,7 @@ export default function V5() {
           data={{
             datasets: [
               {
-                label: "Global Monthly",
+                label: "CO2 years before persent",
                 data: v5[0].map((item) => ({
                   x: item.measurement_date,
                   y: item.data,
@@ -69,9 +66,9 @@ export default function V5() {
         </div>
         <div className="graphLinks">
           <p className="link">
-            Link to HadCRUT5 <a href={v5[1][0].source_link}>source data.</a>
+            Link to V5 <a href={v5[1][0].source_link}>source data.</a>
             <br />
-            Link to official HadCRUT5 data description:{" "}
+            Link to official V5 data description:{" "}
             <a href={v5[1][0].description_link}>description</a>
           </p>
         </div>
