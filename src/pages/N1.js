@@ -1,11 +1,16 @@
 import React from "react";
-import {V1} from "../components"
-import "../styles/graphComponent.css"
+import { V1 } from "../components";
+import V3 from "../components/V3";
+
+import "../styles/graphComponent.css";
 
 export default function N1() {
   return (
     <>
-      <V1 />
+      <div className="visualizations">
+        <V1 />
+        <V3 />
+      </div>
     </>
   );
 }
