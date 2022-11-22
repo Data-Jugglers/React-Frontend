@@ -71,9 +71,18 @@ export default function V3() {
             ],
           }}
         />
-        <a href={result[2][0].source_link}>Source Link</a>
-        <a href={result[2][0].description_link}>Description Link</a>
-        <p>{result[2][0].description}</p>
+        <div className="graphDescription">
+          <p>{result[2][0].description}</p>
+        </div>
+        <div className="graphLinks">
+          <p className="link">
+            Link to the source:{" "}
+            <a href={result[2][0].source_link}>source data</a>
+            <br />
+            Link to the data measurement description:{" "}
+            <a href={result[2][0].description_link}>description</a>
+          </p>
+        </div>
       </div>
     );
   }
