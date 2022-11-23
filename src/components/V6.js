@@ -26,7 +26,7 @@ export default function V6() {
       },
       title: {
         display: true,
-        text: "Atmospheric CO2 concentrations",
+        text: "Ice Core CO2",
       },
     },
     borderWidth: 1,
@@ -51,7 +51,7 @@ export default function V6() {
           data={{
             datasets: [
               {
-                label: "Global monthly",
+                label: "800k Year CO2 measurements",
                 data: result[0].map((item) => ({
                   x: item.measurement_date,
                   y: item.data,
