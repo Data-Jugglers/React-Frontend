@@ -81,14 +81,7 @@ export default function V4() {
                 })),
                 borderColor: "rgba(75, 192, 192, 1)",
               },
-              {
-                label: "Mauna LOA Global Monthly",
-                data: v3[0].map((item) => ({
-                  x: item.measurement_date,
-                  y: item.data,
-                })),
-                borderColor: "rgb(255, 99, 132, 0.8)",
-              },
+
               {
                 label: "Mauna LOA Global Annual",
                 data: v3[1].map((item) => ({
