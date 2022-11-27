@@ -37,7 +37,17 @@ export default function V5() {
     scales: {
       x: {
         type: "linear",
+        title: {
+          display: true,
+          text: "Years before present",
+        },
       },
+      y: {
+        title: {
+          display: true,
+          text: "Co2 concentration",
+        }
+      }
     },
   };
 
@@ -53,8 +63,8 @@ export default function V5() {
               {
                 label: "CO2 years before persent",
                 data: v5[0].map((item) => ({
-                  x: item.measurement_date,
                   y: item.data,
+                  x: item.measurement_date,
                 })),
                 borderColor: "rgb(255, 99, 132, 0.8)",
               },
@@ -66,9 +76,9 @@ export default function V5() {
         </div>
         <div className="graphLinks">
           <p className="link">
-            Link to V5 <a href={v5[1][0].source_link}>source data.</a>
+            Link to CDIAC <a href={v5[1][0].source_link}>source data.</a>
             <br />
-            Link to official V5 data description:{" "}
+            Link to official CDIAC data description:{" "}
             <a href={v5[1][0].description_link}>description</a>
           </p>
         </div>
