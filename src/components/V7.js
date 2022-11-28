@@ -27,7 +27,7 @@ export default function V7() {
       },
       title: {
         display: true,
-        text: "Hiunya",
+        text: "Evolution of global temperature over the past two million years",
       },
     },
     borderWidth: 1,
