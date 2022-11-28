@@ -51,7 +51,7 @@ footer .container {
 }
 
 footer {
-  position: fixed;
+  /* position: fixed; */
   bottom: 0;
   padding-top: 10px;
   width: 100%;
@@ -61,6 +61,7 @@ footer {
   text-align: center;
   background-color: #333;
   color: #fff;
+  display: block;
 }
 
 #nav {
