@@ -66,7 +66,7 @@ export default function V4() {
                 borderColor: "rgba(153, 102, 255, 1)",
               },
               {
-                label: "CO2, 20 Year Smoothed, ppm",
+                label: "CO2 Mixing Ratio, 20 Year Smoothed, ppm",
                 data: v4[1].map((item) => ({
                   x: item.measurement_date,
                   y: item.data,
@@ -74,7 +74,7 @@ export default function V4() {
                 borderColor: "rgba(255, 206, 86, 1)",
               },
               {
-                label: "CO2, 75 Year Smoothed, ppm",
+                label: "CO2 Mixing Ratio, 75 Year Smoothed, ppm",
                 data: v4[2].map((item) => ({
                   x: item.measurement_date,
                   y: item.data,
