@@ -33,6 +33,24 @@ export default function V7() {
     borderWidth: 1,
     pointRadius: 0,
     showLine: true,
+    stacked: false,
+    scales: {
+      y1: {
+        type: "linear",
+        display: true,
+        position: "left",
+      },
+      y2: {
+        type: "linear",
+        display: true,
+        position: "right",
+
+        // grid line settings
+        grid: {
+          drawOnChartArea: false, // only want the grid lines for one axis to show up
+        },
+      },
+    },
   };
 
   if (isLoading) {
@@ -46,35 +64,42 @@ export default function V7() {
             datasets: [
               {
                 label: "GAST reconstruction",
+                yAxisID: "y2",
+                // fill: false,
                 data: result[0].map((item) => ({
                   x: item.measurement_date,
                   y: item.data,
                 })),
+
                 borderColor: "rgb(255, 99, 132)",
               },
               {
                 label: "Antarctic temperature",
+                yAxisID: "y2",
+                // fill: false,
                 data: result[2].map((item) => ({
                   x: item.measurement_date,
                   y: item.data,
                 })),
-                borderColor: "rgb(255, 99, 132)",
+                borderColor: "blue",
               },
               {
                 label: "Carbon dioxide",
+                yAxisID: "y1",
                 data: result[4].map((item) => ({
                   x: item.measurement_date,
                   y: item.data,
                 })),
-                borderColor: "rgb(15, 15, 32)",
+                borderColor: "green",
               },
               {
                 label: "Oxygen isotopes",
+                yAxisID: "y2",
                 data: result[6].map((item) => ({
                   x: item.measurement_date,
                   y: item.data,
                 })),
-                borderColor: "rgb(255, 99, 132)",
+                borderColor: "black",
               },
             ],
           }}
