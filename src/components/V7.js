@@ -51,24 +51,6 @@ export default function V7() {
         },
       },
     },
-    // scales: [
-    //   {
-    //     type: "linear",
-    //     display: true,
-    //     position: "left",
-    //     ticks: {
-    //       beginAtZero: true,
-    //     },
-    //   },
-    //   {
-    //     type: "linear",
-    //     display: true,
-    //     position: "left",
-    //     ticks: {
-    //       beginAtZero: true,
-    //     },
-    //   },
-    // ],
   };
 
   if (isLoading) {
