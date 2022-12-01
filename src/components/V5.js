@@ -1,4 +1,4 @@
-import React from "react";
+import React, { startTransition } from "react";
 import { Chart } from "chart.js/auto";
 import { Line } from "react-chartjs-2";
 import { useEffect, useState } from "react";
@@ -36,18 +36,22 @@ export default function V5() {
     pointRadius: 0,
     scales: {
       x: {
-        type: "linear",
+        reverse: true,
+        type: "category",
         title: {
           display: true,
           text: "Years before present",
+        },
+        ticks: {
+          autoskip: false,
         },
       },
       y: {
         title: {
           display: true,
           text: "Co2 concentration",
-        }
-      }
+        },
+      },
     },
   };
 
@@ -64,7 +68,9 @@ export default function V5() {
                 label: "CO2 years before persent",
                 data: v5[0].map((item) => ({
                   y: item.data,
-                  x: item.measurement_date,
+                  // item.measurement_date = years before present
+                  // 1998 = year when samples were taken
+                  x: item.measurement_date - 1998 + " BC",
                 })),
                 borderColor: "rgb(255, 99, 132, 0.8)",
               },
