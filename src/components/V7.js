@@ -35,6 +35,9 @@ export default function V7() {
     showLine: true,
     stacked: false,
     scales: {
+      x: {
+        reverse: true,
+      },
       y1: {
         type: "linear",
         display: true,
