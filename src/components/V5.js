@@ -19,6 +19,9 @@ export default function V5() {
   }, []);
 
   const options = {
+    layout: {
+      padding: 7,
+    },
     responsive: true,
     plugins: {
       legend: {
@@ -38,10 +41,6 @@ export default function V5() {
       x: {
         reverse: true,
         type: "category",
-        title: {
-          display: true,
-          text: "Years before present",
-        },
         ticks: {
           autoskip: false,
         },
