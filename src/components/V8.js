@@ -6,26 +6,62 @@ import "chartjs-adapter-luxon";
 
 export default function V8() {
   const [v8, setV8] = useState([]);
-  const [index, setIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+
+  const sortV8 = (json) => {
+    let returnArray = [];
+    for (let i = 0; i < json.length - 2; i++) {
+      const element = json[i].map((country) => ({
+        measurement_date: country.measurement_date,
+        data: country.data,
+        countryName: json[220][i],
+      }));
+      returnArray.push(element);
+    }
+    returnArray.sort((a, b) => {
+      return a[a.length - 1].data - b[b.length - 1].data;
+    });
+    returnArray.push(json[219]);
+    return returnArray;
+  };
 
   useEffect(() => {
     const asyncFunction = async () => {
       const response = await fetch("http://localhost:3001/v8");
       const json = await response.json();
-      setV8(json);
-      console.log(json.length);
+      setV8(sortV8(json));
       setIsLoading(false);
     };
     asyncFunction();
+    console.log(v8);
   }, []);
+
+  const getRandomNumber = () => {
+    return Math.floor(Math.random() * 256);
+  };
+
+  const setRandomColor = () => {
+    return (
+      "rgb(" +
+      getRandomNumber() +
+      ", " +
+      getRandomNumber() +
+      ", " +
+      getRandomNumber() +
+      ")"
+    );
+  };
 
   const options = {
     responsive: true,
+    maintainAspectRatio: true,
     plugins: {
       legend: {
         position: "top",
-        display: false,
+        display: true,
+        lables: {
+          boxWidth: 40,
+        },
       },
       title: {
         display: true,
@@ -34,15 +70,7 @@ export default function V8() {
           size: 18,
         },
       },
-      //   tooltip: {
-      //     mode: "index",
-      //   },
     },
-    // interaction: {
-    //   mode: "nearest",
-    //   axis: "x",
-    //   intersect: false,
-    // },
     borderWidth: 1,
     pointRadius: 0,
     scales: {
@@ -67,13 +95,13 @@ export default function V8() {
           options={options}
           data={{
             datasets: v8.slice(0, 219).map((country) => ({
-              label: v8[220][v8.indexOf(country)],
+              label: country[0].countryName,
               data: country.map((item) => ({
                 x: item.measurement_date,
                 y: item.data,
               })),
-              borderColor: "rgb(255, 99, 132, 0.8)",
-              fill: "+1",
+              borderColor: setRandomColor(),
+              // fill: "+1",
             })),
           }}
         />
