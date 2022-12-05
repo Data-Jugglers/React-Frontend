@@ -41,6 +41,9 @@
   display: flex;
   justify-content: center;
   width: 100%;
+  flex-flow: column;
+  gap: 50px;
+  margin-bottom: 100px;
 }
 
 footer .container {
@@ -58,6 +61,7 @@ footer {
   text-align: center;
   background-color: #333;
   color: #fff;
+  display: block;
 }
 
 #nav {
