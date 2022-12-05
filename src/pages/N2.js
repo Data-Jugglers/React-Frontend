@@ -1,9 +1,9 @@
 import React from "react";
-
+import { V9 } from "../components";
 export default function N2() {
   return (
-    <div className="text-color">
-      <div>N2</div>
+    <div className="visualizations">
+      <V9 />
     </div>
   );
 }
