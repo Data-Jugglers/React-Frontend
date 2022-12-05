@@ -6,43 +6,71 @@ import "chartjs-adapter-luxon";
 
 export default function V8() {
   const [v8, setV8] = useState([]);
-  const [index, setIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+
+  const sortV8 = (json) => {
+    let returnArray = [];
+    for (let i = 0; i < json.length - 2; i++) {
+      const element = json[i].map((country) => ({
+        measurement_date: country.measurement_date,
+        data: country.data,
+        countryName: json[220][i],
+      }));
+      returnArray.push(element);
+    }
+    returnArray.sort((a, b) => {
+      return a[a.length - 1].data - b[b.length - 1].data;
+    });
+    returnArray.push(json[219]);
+    return returnArray;
+  };
 
   useEffect(() => {
     const asyncFunction = async () => {
       const response = await fetch("http://localhost:3001/v8");
       const json = await response.json();
-      setV8(json);
-      console.log(json.length);
+      setV8(sortV8(json));
       setIsLoading(false);
     };
     asyncFunction();
+    console.log(v8);
   }, []);
+
+  const getRandomNumber = () => {
+    return Math.floor(Math.random() * 256);
+  };
+
+  const setRandomColor = () => {
+    return (
+      "rgb(" +
+      getRandomNumber() +
+      ", " +
+      getRandomNumber() +
+      ", " +
+      getRandomNumber() +
+      ")"
+    );
+  };
 
   const options = {
     responsive: true,
+    aspectRatio: 1|1,
     plugins: {
       legend: {
         position: "top",
-        display: false,
+        display: true,
+        lables: {
+          boxWidth: 40,
+        },
       },
       title: {
         display: true,
-        text: "CO2 emmsions by country",
+        text: "CO2 emission by country",
         font: {
           size: 18,
         },
       },
-      //   tooltip: {
-      //     mode: "index",
-      //   },
     },
-    // interaction: {
-    //   mode: "nearest",
-    //   axis: "x",
-    //   intersect: false,
-    // },
     borderWidth: 1,
     pointRadius: 0,
     scales: {
@@ -54,6 +82,10 @@ export default function V8() {
       },
       y: {
         stacked: true,
+        title: {
+          display: true,
+          text: "Million tonnes of CO2",
+        }
       },
     },
   };
@@ -67,13 +99,13 @@ export default function V8() {
           options={options}
           data={{
             datasets: v8.slice(0, 219).map((country) => ({
-              label: v8[220][v8.indexOf(country)],
+              label: country[0].countryName,
               data: country.map((item) => ({
                 x: item.measurement_date,
-                y: item.data,
+                y: item.data * 3.664,
               })),
-              borderColor: "rgb(255, 99, 132, 0.8)",
-              fill: "+1",
+              borderColor: setRandomColor(),
+              // fill: "+1",
             })),
           }}
         />
@@ -82,9 +114,9 @@ export default function V8() {
         </div>
         <div className="graphLinks">
           <p className="link">
-            Link to V8 <a href={v8[219][0].source_link}>source data.</a>
+            Link to <a href={v8[219][0].source_link}>source data.</a>
             <br />
-            Link to official V8 data description:{" "}
+            Link to official data description:{" "}
             <a href={v8[219][0].description_link}>description</a>
           </p>
         </div>
