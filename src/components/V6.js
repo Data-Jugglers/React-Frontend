@@ -31,14 +31,15 @@ export default function V6() {
     },
     borderWidth: 1,
     pointRadius: 0,
-    // scales: {
-    //   x: {
-    //     type: "time",
-    //     time: {
-    //       unit: "year",
-    //     },
-    //   },
-    // },
+    scales: {
+      x: {
+        reverse: true,
+        type: "category",
+        time: {
+          unit: "year",
+        },
+      },
+    },
   };
 
   if (isLoading) {
