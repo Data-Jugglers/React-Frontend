@@ -54,7 +54,7 @@ export default function V8() {
 
   const options = {
     responsive: true,
-    maintainAspectRatio: true,
+    aspectRatio: 1|1,
     plugins: {
       legend: {
         position: "top",
@@ -65,7 +65,7 @@ export default function V8() {
       },
       title: {
         display: true,
-        text: "CO2 emmsions by country",
+        text: "CO2 emission by country",
         font: {
           size: 18,
         },
@@ -82,6 +82,10 @@ export default function V8() {
       },
       y: {
         stacked: true,
+        title: {
+          display: true,
+          text: "Million tonnes of CO2",
+        }
       },
     },
   };
@@ -98,7 +102,7 @@ export default function V8() {
               label: country[0].countryName,
               data: country.map((item) => ({
                 x: item.measurement_date,
-                y: item.data,
+                y: item.data * 3.664,
               })),
               borderColor: setRandomColor(),
               // fill: "+1",
@@ -110,9 +114,9 @@ export default function V8() {
         </div>
         <div className="graphLinks">
           <p className="link">
-            Link to V8 <a href={v8[219][0].source_link}>source data.</a>
+            Link to <a href={v8[219][0].source_link}>source data.</a>
             <br />
-            Link to official V8 data description:{" "}
+            Link to official data description:{" "}
             <a href={v8[219][0].description_link}>description</a>
           </p>
         </div>
