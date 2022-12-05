@@ -76,16 +76,16 @@ export default function V7() {
 
                 borderColor: "rgb(255, 99, 132)",
               },
-              {
-                label: "Antarctic temperature",
-                yAxisID: "y2",
-                // fill: false,
-                data: result[2].map((item) => ({
-                  x: item.measurement_date,
-                  y: item.data,
-                })),
-                borderColor: "blue",
-              },
+              // {
+              //   label: "Antarctic temperature",
+              //   yAxisID: "y2",
+              //   // fill: false,
+              //   data: result[2].map((item) => ({
+              //     x: item.measurement_date,
+              //     y: item.data,
+              //   })),
+              //   borderColor: "blue",
+              // },
               {
                 label: "Carbon dioxide",
                 yAxisID: "y1",
@@ -95,15 +95,15 @@ export default function V7() {
                 })),
                 borderColor: "green",
               },
-              {
-                label: "Oxygen isotopes",
-                yAxisID: "y2",
-                data: result[6].map((item) => ({
-                  x: item.measurement_date,
-                  y: item.data,
-                })),
-                borderColor: "black",
-              },
+              // {
+              //   label: "Oxygen isotopes",
+              //   yAxisID: "y2",
+              //   data: result[6].map((item) => ({
+              //     x: item.measurement_date,
+              //     y: item.data,
+              //   })),
+              //   borderColor: "black",
+              // },
             ],
           }}
         />
