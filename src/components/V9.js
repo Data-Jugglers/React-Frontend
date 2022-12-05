@@ -57,42 +57,6 @@ export default function V9() {
             ],
           }}
         ></Pie>
-        {/* <Line
-          options={options}
-          data={{
-            datasets: [
-              {
-                label: "Global monthly",
-                data: result[0].map((item) => ({
-                  x: item.measurement_date,
-                  y: item.data,
-                })),
-                borderColor: "rgb(255, 99, 132)",
-              },
-
-              {
-                label: "Global yearly",
-                data: result[1].map((item) => ({
-                  x: item.measurement_date,
-                  y: item.data,
-                })),
-                borderColor: "rgb(15, 15, 32)",
-              },
-            ],
-          }}
-        />
-        <div className="graphDescription">
-          <p>{result[2][0].description}</p>
-        </div>
-        <div className="graphLinks">
-          <p className="link">
-            Link to the source:{" "}
-            <a href={result[2][0].source_link}>source data</a>
-            <br />
-            Link to the data measurement description:{" "}
-            <a href={result[2][0].description_link}>description</a>
-          </p>
-        </div> */}
       </div>
     );
   }
