@@ -35,6 +35,15 @@ export default function V7() {
     showLine: true,
     stacked: false,
     scales: {
+      x: {
+        // reverse: true,
+        type: "linear",
+        max: 2022,
+        title: {
+          display: true,
+          text: "Time in years",
+        },
+      },
       y1: {
         type: "linear",
         display: true,
@@ -58,7 +67,7 @@ export default function V7() {
   } else {
     return (
       <div className="graphContainer">
-        <Scatter
+        <Line
           options={options}
           data={{
             datasets: [
@@ -67,40 +76,40 @@ export default function V7() {
                 yAxisID: "y2",
                 // fill: false,
                 data: result[0].map((item) => ({
-                  x: item.measurement_date,
+                  x: -item.measurement_date,
                   y: item.data,
                 })),
 
                 borderColor: "rgb(255, 99, 132)",
               },
-              {
-                label: "Antarctic temperature",
-                yAxisID: "y2",
-                // fill: false,
-                data: result[2].map((item) => ({
-                  x: item.measurement_date,
-                  y: item.data,
-                })),
-                borderColor: "blue",
-              },
+              // {
+              //   label: "Antarctic temperature",
+              //   yAxisID: "y2",
+              //   // fill: false,
+              //   data: result[2].map((item) => ({
+              //     x: item.measurement_date,
+              //     y: item.data,
+              //   })),
+              //   borderColor: "blue",
+              // },
               {
                 label: "Carbon dioxide",
                 yAxisID: "y1",
                 data: result[4].map((item) => ({
-                  x: item.measurement_date,
+                  x: -item.measurement_date,
                   y: item.data,
                 })),
                 borderColor: "green",
               },
-              {
-                label: "Oxygen isotopes",
-                yAxisID: "y2",
-                data: result[6].map((item) => ({
-                  x: item.measurement_date,
-                  y: item.data,
-                })),
-                borderColor: "black",
-              },
+              // {
+              //   label: "Oxygen isotopes",
+              //   yAxisID: "y2",
+              //   data: result[6].map((item) => ({
+              //     x: item.measurement_date,
+              //     y: item.data,
+              //   })),
+              //   borderColor: "black",
+              // },
             ],
           }}
         />
