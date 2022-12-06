@@ -6,7 +6,7 @@ export default function N2() {
   return (
     <>
       <div className="visualizations">
-        <V8 />
+        {/* <V8 /> */}
         <V9 />
       </div>
     </>
