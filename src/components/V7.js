@@ -21,6 +21,7 @@ export default function V7() {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "top",
@@ -67,52 +68,54 @@ export default function V7() {
   } else {
     return (
       <div className="graphContainer">
-        <Line
-          options={options}
-          data={{
-            datasets: [
-              {
-                label: "GAST reconstruction",
-                yAxisID: "y2",
-                // fill: false,
-                data: result[0].map((item) => ({
-                  x: -item.measurement_date,
-                  y: item.data,
-                })),
+        <div className="graph">
+          <Line
+            options={options}
+            data={{
+              datasets: [
+                {
+                  label: "GAST reconstruction",
+                  yAxisID: "y2",
+                  // fill: false,
+                  data: result[0].map((item) => ({
+                    x: -item.measurement_date,
+                    y: item.data,
+                  })),
 
-                borderColor: "rgb(255, 99, 132)",
-              },
-              // {
-              //   label: "Antarctic temperature",
-              //   yAxisID: "y2",
-              //   // fill: false,
-              //   data: result[2].map((item) => ({
-              //     x: item.measurement_date,
-              //     y: item.data,
-              //   })),
-              //   borderColor: "blue",
-              // },
-              {
-                label: "Carbon dioxide",
-                yAxisID: "y1",
-                data: result[4].map((item) => ({
-                  x: -item.measurement_date,
-                  y: item.data,
-                })),
-                borderColor: "green",
-              },
-              // {
-              //   label: "Oxygen isotopes",
-              //   yAxisID: "y2",
-              //   data: result[6].map((item) => ({
-              //     x: item.measurement_date,
-              //     y: item.data,
-              //   })),
-              //   borderColor: "black",
-              // },
-            ],
-          }}
-        />
+                  borderColor: "rgb(255, 99, 132)",
+                },
+                // {
+                //   label: "Antarctic temperature",
+                //   yAxisID: "y2",
+                //   // fill: false,
+                //   data: result[2].map((item) => ({
+                //     x: item.measurement_date,
+                //     y: item.data,
+                //   })),
+                //   borderColor: "blue",
+                // },
+                {
+                  label: "Carbon dioxide",
+                  yAxisID: "y1",
+                  data: result[4].map((item) => ({
+                    x: -item.measurement_date,
+                    y: item.data,
+                  })),
+                  borderColor: "green",
+                },
+                // {
+                //   label: "Oxygen isotopes",
+                //   yAxisID: "y2",
+                //   data: result[6].map((item) => ({
+                //     x: item.measurement_date,
+                //     y: item.data,
+                //   })),
+                //   borderColor: "black",
+                // },
+              ],
+            }}
+          />
+        </div>
         <div className="graphDescription">
           <p>{result[1][0].description}</p>
         </div>

@@ -54,7 +54,8 @@ export default function V8() {
 
   const options = {
     responsive: true,
-    aspectRatio: 1|1,
+    maintainAspectRatio: false,
+    aspectRatio: 1 | 1,
     plugins: {
       legend: {
         position: "top",
@@ -85,7 +86,7 @@ export default function V8() {
         title: {
           display: true,
           text: "Million tonnes of CO2",
-        }
+        },
       },
     },
   };
@@ -95,20 +96,22 @@ export default function V8() {
   } else {
     return (
       <div className="graphContainer">
-        <Line
-          options={options}
-          data={{
-            datasets: v8.slice(0, 219).map((country) => ({
-              label: country[0].countryName,
-              data: country.map((item) => ({
-                x: item.measurement_date,
-                y: item.data * 3.664,
+        <div className="graph">
+          <Line
+            options={options}
+            data={{
+              datasets: v8.slice(0, 219).map((country) => ({
+                label: country[0].countryName,
+                data: country.map((item) => ({
+                  x: item.measurement_date,
+                  y: item.data * 3.664,
+                })),
+                borderColor: setRandomColor(),
+                // fill: "+1",
               })),
-              borderColor: setRandomColor(),
-              // fill: "+1",
-            })),
-          }}
-        />
+            }}
+          />
+        </div>
         <div className="graphDescription">
           <p className="description">{v8[219][0].description}</p>
         </div>

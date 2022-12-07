@@ -23,6 +23,7 @@ export default function V4() {
   }, []);
 
   const options = {
+    maintainAspectRatio: false,
     responsive: true,
     plugins: {
       legend: {
@@ -53,46 +54,48 @@ export default function V4() {
   } else {
     return (
       <div className="graphContainer">
-        <Line
-          options={options}
-          data={{
-            datasets: [
-              {
-                label: "CO2 Mixing Ratio",
-                data: v4[0].map((item) => ({
-                  x: item.measurement_date,
-                  y: item.data,
-                })),
-                borderColor: "rgba(153, 102, 255, 1)",
-              },
-              {
-                label: "CO2 Mixing Ratio, 20 Year Smoothed, ppm",
-                data: v4[1].map((item) => ({
-                  x: item.measurement_date,
-                  y: item.data,
-                })),
-                borderColor: "rgba(255, 206, 86, 1)",
-              },
-              {
-                label: "CO2 Mixing Ratio, 75 Year Smoothed, ppm",
-                data: v4[2].map((item) => ({
-                  x: item.measurement_date,
-                  y: item.data,
-                })),
-                borderColor: "rgba(75, 192, 192, 1)",
-              },
+        <div className="graph">
+          <Line
+            options={options}
+            data={{
+              datasets: [
+                {
+                  label: "CO2 Mixing Ratio",
+                  data: v4[0].map((item) => ({
+                    x: item.measurement_date,
+                    y: item.data,
+                  })),
+                  borderColor: "rgba(153, 102, 255, 1)",
+                },
+                {
+                  label: "CO2 Mixing Ratio, 20 Year Smoothed, ppm",
+                  data: v4[1].map((item) => ({
+                    x: item.measurement_date,
+                    y: item.data,
+                  })),
+                  borderColor: "rgba(255, 206, 86, 1)",
+                },
+                {
+                  label: "CO2 Mixing Ratio, 75 Year Smoothed, ppm",
+                  data: v4[2].map((item) => ({
+                    x: item.measurement_date,
+                    y: item.data,
+                  })),
+                  borderColor: "rgba(75, 192, 192, 1)",
+                },
 
-              {
-                label: "Mauna LOA Global Annual",
-                data: v3[1].map((item) => ({
-                  x: item.measurement_date,
-                  y: item.data,
-                })),
-                borderColor: "rgb(255, 99, 132)",
-              },
-            ],
-          }}
-        />
+                {
+                  label: "Mauna LOA Global Annual",
+                  data: v3[1].map((item) => ({
+                    x: item.measurement_date,
+                    y: item.data,
+                  })),
+                  borderColor: "rgb(255, 99, 132)",
+                },
+              ],
+            }}
+          />
+        </div>
         <div className="graphDescription">
           <p className="description">{v4[3][0].description}</p>
           <p className="description">{v3[2][0].description}</p>

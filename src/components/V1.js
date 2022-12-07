@@ -24,6 +24,7 @@ export default function V1() {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "top",
@@ -53,69 +54,71 @@ export default function V1() {
   } else {
     return (
       <div className="graphContainer">
-        <Line
-          options={options}
-          data={{
-            datasets: [
-              {
-                label: "Global Monthly",
-                data: v1[0].map((item) => ({
-                  x: item.measurement_date,
-                  y: item.data,
-                })),
-                borderColor: "rgb(255, 99, 132, 0.8)",
-              },
-              {
-                label: "Global Annual",
-                data: v1[3].map((item) => ({
-                  x: item.measurement_date,
-                  y: item.data,
-                })),
-                borderColor: "rgb(255, 99, 132)",
-              },
-              {
-                label: "Northern Monthly",
-                data: v1[1].map((item) => ({
-                  x: item.measurement_date,
-                  y: item.data,
-                })),
-                borderColor: "rgb(45, 199, 232, 0.8)",
-              },
-              {
-                label: "Northern Annual",
-                data: v1[4].map((item) => ({
-                  x: item.measurement_date,
-                  y: item.data,
-                })),
-                borderColor: "rgb(45, 199, 232)",
-              },
-              {
-                label: "Southern Monthly",
-                data: v1[2].map((item) => ({
-                  x: item.measurement_date,
-                  y: item.data,
-                })),
-                borderColor: "rgb(2, 233, 32, 0.8)",
-              },
-              {
-                label: "Southern Annual",
-                data: v1[5].map((item) => ({
-                  x: item.measurement_date,
-                  y: item.data,
-                })),
-                borderColor: "rgb(2, 233, 32)",
-              },
-              {
-                label: "Past 2000 years",
-                data: v2[0].map((item) => ({
-                  x: item.measurement_date,
-                  y: item.data,
-                })),
-                borderColor: "rgb(50,30,70)",
-              },
-            ],
-          }}
-        />
+        <div className="graph">
+          <Line
+            options={options}
+            data={{
+              datasets: [
+                {
+                  label: "Global Monthly",
+                  data: v1[0].map((item) => ({
+                    x: item.measurement_date,
+                    y: item.data,
+                  })),
+                  borderColor: "rgb(255, 99, 132, 0.8)",
+                },
+                {
+                  label: "Global Annual",
+                  data: v1[3].map((item) => ({
+                    x: item.measurement_date,
+                    y: item.data,
+                  })),
+                  borderColor: "rgb(255, 99, 132)",
+                },
+                {
+                  label: "Northern Monthly",
+                  data: v1[1].map((item) => ({
+                    x: item.measurement_date,
+                    y: item.data,
+                  })),
+                  borderColor: "rgb(45, 199, 232, 0.8)",
+                },
+                {
+                  label: "Northern Annual",
+                  data: v1[4].map((item) => ({
+                    x: item.measurement_date,
+                    y: item.data,
+                  })),
+                  borderColor: "rgb(45, 199, 232)",
+                },
+                {
+                  label: "Southern Monthly",
+                  data: v1[2].map((item) => ({
+                    x: item.measurement_date,
+                    y: item.data,
+                  })),
+                  borderColor: "rgb(2, 233, 32, 0.8)",
+                },
+                {
+                  label: "Southern Annual",
+                  data: v1[5].map((item) => ({
+                    x: item.measurement_date,
+                    y: item.data,
+                  })),
+                  borderColor: "rgb(2, 233, 32)",
+                },
+                {
+                  label: "Past 2000 years",
+                  data: v2[0].map((item) => ({
+                    x: item.measurement_date,
+                    y: item.data,
+                  })),
+                  borderColor: "rgb(50,30,70)",
+                },
+              ],
+            }}
+          />
+        </div>
         <div className="graphDescription">
           <p className="description">{v1[6][0].description}</p>
           <p className="description">{v2[1][0].description}</p>
