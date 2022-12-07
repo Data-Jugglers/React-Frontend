@@ -9,9 +9,9 @@ export default function V9() {
   const [isLoading, setIsLoading] = useState(true);
   const [labelsList, setLabelsList] = useState([]);
   const [dataList, setDataList] = useState([]);
-  const [sectorLabelsList, setSectorLabelsList] = useState([]);
-  const [sectorDataList, setSectorDataList] = useState([]);
-
+  const [labelsList2, setLabelsList2] = useState([]);
+  const [dataList2, setDataList2] = useState([]);
+  const [isSubSector, setIsSubSector] = useState(false);
   useEffect(() => {
     const asyncFunction = async () => {
       const response = await fetch("http://localhost:3001/v9");
@@ -23,35 +23,32 @@ export default function V9() {
       setIsLoading(false);
       let tempLabel = [];
       let tempData = [];
-      for (let i = 0; i < json[0].length; i++) {
-        for (let x = 0; x < json[0][i]["subSectors"].length; x++) {
-          tempLabel.push(json[0][i]["subSectors"][x].category);
-          tempData.push(json[0][i]["subSectors"][x].data);
-        }
-      }
-      setSectorLabelsList(tempLabel);
-      setSectorDataList(tempData);
-
-      console.log(sectorLabelsList);
     };
     asyncFunction();
   }, []);
-  function switchData() {
-    if (dataList.length >= 4) {
-      let temp = sectorDataList;
-      setSectorDataList(dataList);
-      setDataList(temp);
-      temp = labelsList;
-      setSectorLabelsList(sectorLabelsList);
-      setLabelsList(temp);
+  function switchData(label) {
+    if (isSubSector) {
+      let temp = labelsList;
+      setLabelsList(labelsList2);
+      setLabelsList2(temp);
+      temp = dataList;
+      setDataList(dataList2);
+      setDataList2(temp);
+
+      setIsSubSector(false);
+    } else {
+      for (const element of result[0]) {
+        if (element.sector.measurement_date == label) {
+          setDataList2(dataList);
+          setDataList(element["subSectors"].map((subSector) => subSector.data));
+          setLabelsList2(labelsList);
+          setLabelsList(
+            element["subSectors"].map((subSector) => subSector.category)
+          );
+          setIsSubSector(true);
+        }
+      }
     }
-    let temp = dataList;
-    setDataList(sectorDataList);
-    setSectorDataList(temp);
-    temp = labelsList;
-    setLabelsList(sectorLabelsList);
-    setSectorLabelsList(temp);
-    return 0;
   }
   const options = {
     responsive: true,
@@ -75,8 +72,10 @@ export default function V9() {
       <div className="graphContainer">
         <Pie
           options={{
-            onClick: (e) => {
-              switchData();
+            onClick: function (e, activeEls) {
+              let dataIndex = activeEls[0].index;
+              let label = e.chart.data.labels[dataIndex];
+              switchData(label);
             },
           }}
           data={{
