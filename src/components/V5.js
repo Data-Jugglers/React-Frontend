@@ -23,6 +23,7 @@ export default function V5() {
       padding: 7,
     },
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "top",
@@ -59,23 +60,25 @@ export default function V5() {
   } else {
     return (
       <div className="graphContainer">
-        <Line
-          options={options}
-          data={{
-            datasets: [
-              {
-                label: "CO2 years before persent",
-                data: v5[0].map((item) => ({
-                  y: item.data,
-                  // item.measurement_date = years before present
-                  // 1998 = year when samples were taken
-                  x: item.measurement_date - 1998 + " BC",
-                })),
-                borderColor: "rgb(255, 99, 132, 0.8)",
-              },
-            ],
-          }}
-        />
+        <div className="graph">
+          <Line
+            options={options}
+            data={{
+              datasets: [
+                {
+                  label: "CO2 years before persent",
+                  data: v5[0].map((item) => ({
+                    y: item.data,
+                    // item.measurement_date = years before present
+                    // 1998 = year when samples were taken
+                    x: item.measurement_date - 1998 + " BC",
+                  })),
+                  borderColor: "rgb(255, 99, 132, 0.8)",
+                },
+              ],
+            }}
+          />
+        </div>
         <div className="graphDescription">
           <p className="description">{v5[1][0].description}</p>
         </div>

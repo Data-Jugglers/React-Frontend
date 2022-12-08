@@ -21,6 +21,7 @@ export default function V3() {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "top",
@@ -47,30 +48,32 @@ export default function V3() {
   } else {
     return (
       <div className="graphContainer">
-        <Line
-          options={options}
-          data={{
-            datasets: [
-              {
-                label: "Global monthly",
-                data: result[0].map((item) => ({
-                  x: item.measurement_date,
-                  y: item.data,
-                })),
-                borderColor: "rgb(255, 99, 132)",
-              },
+        <div className="graph">
+          <Line
+            options={options}
+            data={{
+              datasets: [
+                {
+                  label: "Global monthly",
+                  data: result[0].map((item) => ({
+                    x: item.measurement_date,
+                    y: item.data,
+                  })),
+                  borderColor: "rgb(255, 99, 132)",
+                },
 
-              {
-                label: "Global yearly",
-                data: result[1].map((item) => ({
-                  x: item.measurement_date,
-                  y: item.data,
-                })),
-                borderColor: "rgb(15, 15, 32)",
-              },
-            ],
-          }}
-        />
+                {
+                  label: "Global yearly",
+                  data: result[1].map((item) => ({
+                    x: item.measurement_date,
+                    y: item.data,
+                  })),
+                  borderColor: "rgb(15, 15, 32)",
+                },
+              ],
+            }}
+          />
+        </div>
         <div className="graphDescription">
           <p>{result[2][0].description}</p>
         </div>

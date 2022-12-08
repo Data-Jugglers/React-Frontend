@@ -20,6 +20,7 @@ export default function V6() {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "top",
@@ -47,21 +48,23 @@ export default function V6() {
   } else {
     return (
       <div className="graphContainer">
-        <Line
-          options={options}
-          data={{
-            datasets: [
-              {
-                label: "800k Year CO2 measurements",
-                data: result[0].map((item) => ({
-                  x: item.measurement_date,
-                  y: item.data,
-                })),
-                borderColor: "rgb(255, 99, 132)",
-              },
-            ],
-          }}
-        />
+        <div className="graph">
+          <Line
+            options={options}
+            data={{
+              datasets: [
+                {
+                  label: "800k Year CO2 measurements",
+                  data: result[0].map((item) => ({
+                    x: item.measurement_date,
+                    y: item.data,
+                  })),
+                  borderColor: "rgb(255, 99, 132)",
+                },
+              ],
+            }}
+          />
+        </div>
         <div className="graphDescription">
           <p>{result[1][0].description}</p>
         </div>
