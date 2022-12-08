@@ -3,6 +3,18 @@ import { Link } from "react-router-dom";
 import Popup from "reactjs-popup";
 
 export default function Navbar() {
+  const [userName, setUserName] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  function clearAndLogin() {
+    console.log(userName, password, "login");
+    setUserName("");
+    setPassword("");
+  }
+  function clearAndSignup() {
+    console.log(userName, password, "signup");
+    setUserName("");
+    setPassword("");
+  }
   return (
     <nav id="nav" class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
       <div class="container-fluid">
@@ -62,6 +74,8 @@ export default function Navbar() {
                           class="tb"
                           required
                           name="fName"
+                          value={userName}
+                          onChange={(e) => setUserName(e.target.value)}
                         />
 
                         <label>Enter Password </label>
@@ -72,12 +86,16 @@ export default function Navbar() {
                           class="tb"
                           required
                           name="password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
                         />
 
                         <input
                           type="reset"
                           value="Login"
-                          onclick="clearFunc()"
+                          onClick={function () {
+                            clearAndSignup();
+                          }}
                           id="res"
                           class="btn"
                         />
@@ -95,6 +113,8 @@ export default function Navbar() {
                           class="tb"
                           required
                           name="fName"
+                          value={userName}
+                          onChange={(e) => setUserName(e.target.value)}
                         />
 
                         <label>Enter Password </label>
@@ -105,12 +125,16 @@ export default function Navbar() {
                           class="tb"
                           required
                           name="password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
                         />
 
                         <input
                           type="reset"
                           value="Signup"
-                          onclick="clearFunc()"
+                          onClick={function () {
+                            clearAndSignup();
+                          }}
                           id="res"
                           class="btn"
                         />
