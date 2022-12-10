@@ -7,13 +7,16 @@ import "chartjs-adapter-luxon";
 export default function V7() {
   const [result, setResult] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [v10, setV10] = useState([]);
 
   useEffect(() => {
     const asyncFunction = async () => {
-      const response = await fetch("http://localhost:3001/v7");
-      const json = await response.json();
-      setResult(json);
-      console.log(json);
+      const response1 = await fetch("http://localhost:3001/v7");
+      const json1 = await response1.json();
+      setResult(json1);
+      const response2 = await fetch("http://localhost:3001/v10");
+      const json2 = await response2.json();
+      setV10(json2);
       setIsLoading(false);
     };
     asyncFunction();
@@ -21,7 +24,6 @@ export default function V7() {
 
   const options = {
     responsive: true,
-    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "top",
@@ -29,6 +31,17 @@ export default function V7() {
       title: {
         display: true,
         text: "Evolution of global temperature over the past two million years",
+      },
+      tooltip: {
+        callbacks: {
+          label: function (dataset) {
+            if (dataset.datasetIndex == 2) {
+              return v10[1][dataset.dataIndex].string;
+            } else {
+              return dataset.raw.y;
+            }
+          },
+        },
       },
     },
     borderWidth: 1,
@@ -60,6 +73,9 @@ export default function V7() {
           drawOnChartArea: false, // only want the grid lines for one axis to show up
         },
       },
+      Y_history: {
+        display: false,
+      },
     },
   };
 
@@ -68,56 +84,69 @@ export default function V7() {
   } else {
     return (
       <div className="graphContainer">
-        <div className="graph">
-          <Line
-            options={options}
-            data={{
-              datasets: [
-                {
-                  label: "GAST reconstruction",
-                  yAxisID: "y2",
-                  // fill: false,
-                  data: result[0].map((item) => ({
-                    x: -item.measurement_date,
-                    y: item.data,
-                  })),
+        <Line
+          options={options}
+          data={{
+            datasets: [
+              {
+                label: "GAST reconstruction",
+                yAxisID: "y2",
+                // fill: false,
+                data: result[0].map((item) => ({
+                  x: -item.measurement_date,
+                  y: item.data,
+                })),
 
-                  borderColor: "rgb(255, 99, 132)",
-                },
-                // {
-                //   label: "Antarctic temperature",
-                //   yAxisID: "y2",
-                //   // fill: false,
-                //   data: result[2].map((item) => ({
-                //     x: item.measurement_date,
-                //     y: item.data,
-                //   })),
-                //   borderColor: "blue",
-                // },
-                {
-                  label: "Carbon dioxide",
-                  yAxisID: "y1",
-                  data: result[4].map((item) => ({
-                    x: -item.measurement_date,
-                    y: item.data,
-                  })),
-                  borderColor: "green",
-                },
-                // {
-                //   label: "Oxygen isotopes",
-                //   yAxisID: "y2",
-                //   data: result[6].map((item) => ({
-                //     x: item.measurement_date,
-                //     y: item.data,
-                //   })),
-                //   borderColor: "black",
-                // },
-              ],
-            }}
-          />
-        </div>
+                borderColor: "rgb(255, 99, 132)",
+              },
+              // {
+              //   label: "Antarctic temperature",
+              //   yAxisID: "y2",
+              //   // fill: false,
+              //   data: result[2].map((item) => ({
+              //     x: item.measurement_date,
+              //     y: item.data,
+              //   })),
+              //   borderColor: "blue",
+              // },
+              {
+                label: "Carbon dioxide",
+                yAxisID: "y1",
+                data: result[4].map((item) => ({
+                  x: -item.measurement_date,
+                  y: item.data,
+                })),
+                borderColor: "green",
+              },
+              // {
+              //   label: "Oxygen isotopes",
+              //   yAxisID: "y2",
+              //   data: result[6].map((item) => ({
+              //     x: item.measurement_date,
+              //     y: item.data,
+              //   })),
+              //   borderColor: "black",
+              // },
+              {
+                label: "History",
+                yAxisID: "Y_history",
+                data: v10[1].map((item) => ({
+                  x: -item.measurement_date,
+                  y: item.data,
+                })),
+                borderColor: "brown",
+                showLine: false,
+                hidden: false,
+                pointStyle: "circle",
+                pointRadius: 5,
+                pointHoverRadius: 15,
+              },
+            ],
+          }}
+        />
         <div className="graphDescription">
-          <p>{result[1][0].description}</p>
+          <p className="description">{result[1][0].description}</p>
+          <p className="description">{v10[2][0].description}</p>
         </div>
         <div className="graphLinks">
           <p className="link">
@@ -126,6 +155,13 @@ export default function V7() {
             <br />
             Link to the data measurement description:{" "}
             <a href={result[1][0].description_link}>description</a>
+          </p>
+          <p className="link">
+            Link to Milestones in Evolution and History:{" "}
+            <a href={v10[2][0].source_link}>source data</a>
+            <br />
+            Link to data description:{" "}
+            <a href={v10[2][0].description_link}>description</a>
           </p>
         </div>
       </div>
