@@ -7,6 +7,7 @@ import "chartjs-adapter-luxon";
 export default function V4() {
   const [v3, setV3] = useState([]);
   const [v4, setv4] = useState([]);
+  const [v10, setV10] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -17,6 +18,9 @@ export default function V4() {
       const response2 = await fetch("http://localhost:3001/v4");
       const json2 = await response2.json();
       setv4(json2);
+      const response3 = await fetch("http://localhost:3001/v10");
+      const json3 = await response3.json();
+      setV10(json3);
       setIsLoading(false);
     };
     asyncFunction();
@@ -34,6 +38,17 @@ export default function V4() {
         text: "Historical CO2 Record",
         font: {
           size: 18,
+        },
+      },
+      tooltip: {
+        callbacks: {
+          label: function (dataset) {
+            if (dataset.datasetIndex == 4) {
+              return v10[0][dataset.dataIndex].string;
+            } else {
+              return dataset.raw.y;
+            }
+          },
         },
       },
     },
@@ -83,7 +98,6 @@ export default function V4() {
                   })),
                   borderColor: "rgba(75, 192, 192, 1)",
                 },
-
                 {
                   label: "Mauna LOA Global Annual",
                   data: v3[1].map((item) => ({
@@ -92,6 +106,19 @@ export default function V4() {
                   })),
                   borderColor: "rgb(255, 99, 132)",
                 },
+                {
+                  label: "History",
+                  data: v10[0].map((item) => ({
+                    x: item.measurement_date,
+                    y: 310,
+                  })),
+                  borderColor: "brown",
+                  showLine: false,
+                  hidden: false,
+                  pointStyle: "circle",
+                  pointRadius: 5,
+                  pointHoverRadius: 15,
+                },
               ],
             }}
           />
@@ -99,6 +126,7 @@ export default function V4() {
         <div className="graphDescription">
           <p className="description">{v4[3][0].description}</p>
           <p className="description">{v3[2][0].description}</p>
+          <p className="description">{v10[2][0].description}</p>
         </div>
         <div className="graphLinks">
           <p className="link">
@@ -114,6 +142,13 @@ export default function V4() {
             <br />
             Link to the Mauna Loa official description:{" "}
             <a href={v3[2][0].description_link}>description</a>
+          </p>
+          <p className="link">
+            Link to Milestones in Evolution and History:{" "}
+            <a href={v10[2][0].source_link}>source data</a>
+            <br />
+            Link to data description:{" "}
+            <a href={v10[2][0].description_link}>description</a>
           </p>
         </div>
       </div>
