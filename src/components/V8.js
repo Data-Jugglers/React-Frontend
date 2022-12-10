@@ -55,13 +55,19 @@ export default function V8() {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
-    aspectRatio: 1 | 1,
+    aspectRatio: 1.7,
     plugins: {
       legend: {
         position: "top",
         display: true,
-        lables: {
-          boxWidth: 40,
+
+        labels: {
+          padding: 2,
+          boxWidth: 10,
+          maxHeight: 10,
+          font: {
+            size: 9,
+          },
         },
       },
       title: {
@@ -96,7 +102,7 @@ export default function V8() {
   } else {
     return (
       <div className="graphContainer">
-        <div className="graph">
+        <div className="graph-v8">
           <Line
             options={options}
             data={{
