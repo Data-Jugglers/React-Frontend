@@ -7,7 +7,16 @@
 /* this is for the chart itself to be responsive */
 .graph {
   height: 50vh;
-  width: 90%;
+  width: 100%;
+}
+.graph-v8 {
+  height: 100vh;
+  width: 100%;
+}
+@media (max-width: 768px) {
+  .graph-v8 {
+    height: 120vh;
+  }
 }
 .graphDescription {
   font-size: 18px;
