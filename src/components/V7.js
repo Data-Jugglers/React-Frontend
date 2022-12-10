@@ -93,7 +93,7 @@ export default function V7() {
                 yAxisID: "y2",
                 // fill: false,
                 data: result[0].map((item) => ({
-                  x: -item.measurement_date,
+                  x: 2022-item.measurement_date,
                   y: item.data,
                 })),
 
@@ -113,7 +113,7 @@ export default function V7() {
                 label: "Carbon dioxide",
                 yAxisID: "y1",
                 data: result[4].map((item) => ({
-                  x: -item.measurement_date,
+                  x: 2022-item.measurement_date,
                   y: item.data,
                 })),
                 borderColor: "green",
@@ -131,7 +131,7 @@ export default function V7() {
                 label: "History",
                 yAxisID: "Y_history",
                 data: v10[1].map((item) => ({
-                  x: -item.measurement_date,
+                  x: 2022-item.measurement_date,
                   y: item.data,
                 })),
                 borderColor: "brown",
