@@ -84,66 +84,68 @@ export default function V7() {
   } else {
     return (
       <div className="graphContainer">
-        <Line
-          options={options}
-          data={{
-            datasets: [
-              {
-                label: "GAST reconstruction",
-                yAxisID: "y2",
-                // fill: false,
-                data: result[0].map((item) => ({
-                  x: 2022-item.measurement_date,
-                  y: item.data,
-                })),
+        <div className="graph">
+          <Line
+            options={options}
+            data={{
+              datasets: [
+                {
+                  label: "GAST reconstruction",
+                  yAxisID: "y2",
+                  // fill: false,
+                  data: result[0].map((item) => ({
+                    x: 2022 - item.measurement_date,
+                    y: item.data,
+                  })),
 
-                borderColor: "rgb(255, 99, 132)",
-              },
-              // {
-              //   label: "Antarctic temperature",
-              //   yAxisID: "y2",
-              //   // fill: false,
-              //   data: result[2].map((item) => ({
-              //     x: item.measurement_date,
-              //     y: item.data,
-              //   })),
-              //   borderColor: "blue",
-              // },
-              {
-                label: "Carbon dioxide",
-                yAxisID: "y1",
-                data: result[4].map((item) => ({
-                  x: 2022-item.measurement_date,
-                  y: item.data,
-                })),
-                borderColor: "green",
-              },
-              // {
-              //   label: "Oxygen isotopes",
-              //   yAxisID: "y2",
-              //   data: result[6].map((item) => ({
-              //     x: item.measurement_date,
-              //     y: item.data,
-              //   })),
-              //   borderColor: "black",
-              // },
-              {
-                label: "History",
-                yAxisID: "Y_history",
-                data: v10[1].map((item) => ({
-                  x: 2022-item.measurement_date,
-                  y: item.data,
-                })),
-                borderColor: "brown",
-                showLine: false,
-                hidden: false,
-                pointStyle: "circle",
-                pointRadius: 5,
-                pointHoverRadius: 15,
-              },
-            ],
-          }}
-        />
+                  borderColor: "rgb(255, 99, 132)",
+                },
+                // {
+                //   label: "Antarctic temperature",
+                //   yAxisID: "y2",
+                //   // fill: false,
+                //   data: result[2].map((item) => ({
+                //     x: item.measurement_date,
+                //     y: item.data,
+                //   })),
+                //   borderColor: "blue",
+                // },
+                {
+                  label: "Carbon dioxide",
+                  yAxisID: "y1",
+                  data: result[4].map((item) => ({
+                    x: 2022 - item.measurement_date,
+                    y: item.data,
+                  })),
+                  borderColor: "green",
+                },
+                // {
+                //   label: "Oxygen isotopes",
+                //   yAxisID: "y2",
+                //   data: result[6].map((item) => ({
+                //     x: item.measurement_date,
+                //     y: item.data,
+                //   })),
+                //   borderColor: "black",
+                // },
+                {
+                  label: "History",
+                  yAxisID: "Y_history",
+                  data: v10[1].map((item) => ({
+                    x: 2022 - item.measurement_date,
+                    y: item.data,
+                  })),
+                  borderColor: "brown",
+                  showLine: false,
+                  hidden: false,
+                  pointStyle: "circle",
+                  pointRadius: 5,
+                  pointHoverRadius: 15,
+                },
+              ],
+            }}
+          />
+        </div>
         <div className="graphDescription">
           <p className="description">{result[1][0].description}</p>
           <p className="description">{v10[2][0].description}</p>
