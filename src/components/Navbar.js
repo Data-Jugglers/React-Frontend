@@ -1,17 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Popup from "reactjs-popup";
+import axios from "axios";
 
 export default function Navbar() {
   const [userName, setUserName] = React.useState("");
   const [password, setPassword] = React.useState("");
-  function clearAndLogin() {
-    console.log(userName, password, "login");
+  async function clearAndLogin() {
+    const response = await axios.post("http://localhost:3001/login", {
+      username: userName,
+      password: password,
+    });
+    console.log(response.data);
+    // console.log(response);
     setUserName("");
     setPassword("");
   }
-  function clearAndSignup() {
-    console.log(userName, password, "signup");
+  async function clearAndSignup() {
+    const response = await axios.post("http://localhost:3001/signup", {
+      username: userName,
+      password: password,
+    });
+    console.log(response);
     setUserName("");
     setPassword("");
   }
@@ -94,7 +104,7 @@ export default function Navbar() {
                           type="reset"
                           value="Login"
                           onClick={function () {
-                            clearAndSignup();
+                            clearAndLogin();
                           }}
                           id="res"
                           class="btn"
