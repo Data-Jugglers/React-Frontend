@@ -3,8 +3,8 @@ import { useState } from "react";
 
 export default function N3() {
   const [openForm, setOpenForm] = useState(false);
-  const [viewName, setViewName] = useState("");
   const [oneColumn, setOneColumn] = useState(true);
+  const [viewName, setViewName] = useState("");
   const [firstColumn, setFirstColumn] = useState([]);
   const [secondColumn, setSecondColumn] = useState([]);
 
@@ -80,8 +80,21 @@ export default function N3() {
 
   const save = () => {
     // save first form info
-    console.log(firstColumn);
-    console.log(secondColumn);
+    if (secondColumn.length < 1) {
+      const savedView = {
+        viewName: viewName,
+        first: firstColumn,
+      };
+      // Implement axios put here or call axios function
+    } else {
+      const savedView = {
+        viewName: viewName,
+        first: firstColumn,
+        second: secondColumn,
+      };
+      // Implement axios put here or call axios function
+    }
+    window.location.reload();
   };
 
   return (
@@ -236,7 +249,7 @@ export default function N3() {
               >
                 Cancel
               </button>
-              <button className="btn btn-primary" type="button" onSubmit={save}>
+              <button className="btn btn-primary" type="button" onClick={save}>
                 Save
               </button>
             </div>
