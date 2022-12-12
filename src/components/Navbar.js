@@ -6,12 +6,17 @@ import axios from "axios";
 export default function Navbar() {
   const [userName, setUserName] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   async function clearAndLogin() {
     const response = await axios.post("http://localhost:3001/login", {
       username: userName,
       password: password,
     });
     console.log(response.data);
+    sessionStorage.setItem("token", response.data.token);
+    sessionStorage.setItem("username", response.data.username);
+    sessionStorage.setItem("id", response.data.id);
+    setIsLoggedIn(true);
     // console.log(response);
     setUserName("");
     setPassword("");
@@ -24,6 +29,16 @@ export default function Navbar() {
     console.log(response);
     setUserName("");
     setPassword("");
+  }
+  async function deleteUser() {
+    const response = await axios.delete("http://localhost:3001/user/", {
+      data: { id: sessionStorage.getItem("id") },
+    });
+    console.log(response);
+    setIsLoggedIn(false);
+    sessionStorage.setItem("token", "");
+    sessionStorage.setItem("username", "");
+    sessionStorage.setItem("id", "");
   }
   return (
     <nav id="nav" class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
@@ -73,89 +88,99 @@ export default function Navbar() {
                   Account
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">
-                    <Popup trigger={<a>Login</a>} position="right center">
-                      <div className="popup">
-                        <label>Enter Full Name </label>
-                        <input
-                          type="text"
-                          placeholder="Enter your full name here"
-                          id="t1"
-                          class="tb"
-                          required
-                          name="fName"
-                          value={userName}
-                          onChange={(e) => setUserName(e.target.value)}
-                        />
+                  {!isLoggedIn && (
+                    <a class="dropdown-item" href="#">
+                      <Popup trigger={<a>Login</a>} position="right center">
+                        <div className="popup">
+                          <label>Enter Full Name </label>
+                          <input
+                            type="text"
+                            placeholder="Enter your full name here"
+                            id="t1"
+                            class="tb"
+                            required
+                            name="fName"
+                            value={userName}
+                            onChange={(e) => setUserName(e.target.value)}
+                          />
 
-                        <label>Enter Password </label>
-                        <input
-                          type="password"
-                          placeholder="Enter Password here"
-                          id="t4"
-                          class="tb"
-                          required
-                          name="password"
-                          value={password}
-                          onChange={(e) => setPassword(e.target.value)}
-                        />
+                          <label>Enter Password </label>
+                          <input
+                            type="password"
+                            placeholder="Enter Password here"
+                            id="t4"
+                            class="tb"
+                            required
+                            name="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                          />
 
-                        <input
-                          type="reset"
-                          value="Login"
-                          onClick={function () {
-                            clearAndLogin();
-                          }}
-                          id="res"
-                          class="btn"
-                        />
-                      </div>
-                    </Popup>
-                  </a>
-                  <a class="dropdown-item" href="#">
-                    <Popup trigger={<a>Signup</a>} position="right center">
-                      <div className="popup">
-                        <label>Enter Full Name </label>
-                        <input
-                          type="text"
-                          placeholder="Enter your full name here"
-                          id="t1"
-                          class="tb"
-                          required
-                          name="fName"
-                          value={userName}
-                          onChange={(e) => setUserName(e.target.value)}
-                        />
+                          <input
+                            type="reset"
+                            value="Login"
+                            onClick={function () {
+                              clearAndLogin();
+                            }}
+                            id="res"
+                            class="btn"
+                          />
+                        </div>
+                      </Popup>
+                    </a>
+                  )}
+                  {!isLoggedIn && (
+                    <a class="dropdown-item" href="#">
+                      <Popup trigger={<a>Signup</a>} position="right center">
+                        <div className="popup">
+                          <label>Enter Full Name </label>
+                          <input
+                            type="text"
+                            placeholder="Enter your full name here"
+                            id="t1"
+                            class="tb"
+                            required
+                            name="fName"
+                            value={userName}
+                            onChange={(e) => setUserName(e.target.value)}
+                          />
 
-                        <label>Enter Password </label>
-                        <input
-                          type="password"
-                          placeholder="Enter Password here"
-                          id="t4"
-                          class="tb"
-                          required
-                          name="password"
-                          value={password}
-                          onChange={(e) => setPassword(e.target.value)}
-                        />
+                          <label>Enter Password </label>
+                          <input
+                            type="password"
+                            placeholder="Enter Password here"
+                            id="t4"
+                            class="tb"
+                            required
+                            name="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                          />
 
-                        <input
-                          type="reset"
-                          value="Signup"
-                          onClick={function () {
-                            clearAndSignup();
-                          }}
-                          id="res"
-                          class="btn"
-                        />
-                      </div>
-                    </Popup>
-                  </a>
+                          <input
+                            type="reset"
+                            value="Signup"
+                            onClick={function () {
+                              clearAndSignup();
+                            }}
+                            id="res"
+                            class="btn"
+                          />
+                        </div>
+                      </Popup>
+                    </a>
+                  )}
                   <a class="dropdown-item" href="/N3">
                     Your Views
                   </a>
-                  <a class="dropdown-item" href="#">
-                    Delete
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    onClick={function () {
+                      deleteUser();
+                    }}
+                  >
+                    Delete User
                   </a>
                 </div>
               </div>
