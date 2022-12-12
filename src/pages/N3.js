@@ -3,10 +3,10 @@ import { useState } from "react";
 
 export default function N3() {
   const [openForm, setOpenForm] = useState(false);
-  const [viewName, setViewName] = useState();
+  const [viewName, setViewName] = useState("");
   const [oneColumn, setOneColumn] = useState(true);
-  const [menuOne, setMenuOne] = useState(0);
-  const [menuTwo, setMenuTwo] = useState(0);
+  const [firstColumn, setFirstColumn] = useState([]);
+  const [secondColumn, setSecondColumn] = useState([]);
 
   const changeState = () => {
     switch (openForm) {
@@ -25,6 +25,7 @@ export default function N3() {
     switch (id) {
       case "ColumnCheck1":
         setOneColumn(true);
+        setSecondColumn([]);
         break;
       case "ColumnCheck2":
         setOneColumn(false);
@@ -38,18 +39,39 @@ export default function N3() {
     setOpenForm(false);
     setViewName();
     setOneColumn(true);
-    setMenuOne(0);
-    setMenuTwo(0);
+    setFirstColumn([]);
+    setSecondColumn([]);
   };
 
-  const addView = (id) => {
-    switch (id) {
+  const addView = (e) => {
+    switch (e.target.id) {
       case "menuOne":
-        setMenuOne(menuOne + 1);
-        console.log(menuOne);
+        if (firstColumn.length < 1) {
+          setFirstColumn([
+            { position: 1, graph: e.target.previousElementSibling.value },
+          ]);
+          break;
+        }
+        let newArray = firstColumn.map((item) => item);
+        newArray.push({
+          position: firstColumn.length + 1,
+          graph: e.target.previousElementSibling.value,
+        });
+        setFirstColumn(newArray);
         break;
       case "menuTwo":
-        setMenuTwo(menuTwo + 1);
+        if (secondColumn.length < 1) {
+          setSecondColumn([
+            { position: 1, graph: e.target.previousElementSibling.value },
+          ]);
+          break;
+        }
+        let newSecondArray = secondColumn.map((item) => item);
+        newSecondArray.push({
+          position: secondColumn.length + 1,
+          graph: e.target.previousElementSibling.value,
+        });
+        setSecondColumn(newSecondArray);
         break;
       default:
         break;
@@ -58,6 +80,8 @@ export default function N3() {
 
   const save = () => {
     // save first form info
+    console.log(firstColumn);
+    console.log(secondColumn);
   };
 
   return (
@@ -111,19 +135,20 @@ export default function N3() {
               {oneColumn ? (
                 <div>
                   <select className="form-select">
-                    <option value="1">V1</option>
-                    <option value="3">V3</option>
-                    <option value="4">V4</option>
-                    <option value="5">V5</option>
-                    <option value="6">V6</option>
-                    <option value="7">V7</option>
-                    <option value="8">V8</option>
-                    <option value="9">V9</option>
+                    <option value="V1">V1</option>
+                    <option value="V3">V3</option>
+                    <option value="V4">V4</option>
+                    <option value="V5">V5</option>
+                    <option value="V6">V6</option>
+                    <option value="V7">V7</option>
+                    <option value="V8">V8</option>
+                    <option value="V9">V9</option>
                   </select>
                   <button
-                    onClick={(e) => addView(e.target.id)}
+                    onClick={(e) => addView(e)}
                     type="button"
                     id="menuOne"
+                    className="btn btn-primary"
                   >
                     Add
                   </button>
@@ -132,42 +157,76 @@ export default function N3() {
                 <div>
                   <div>
                     <select className="form-select">
-                      <option value="1">V1</option>
-                      <option value="3">V3</option>
-                      <option value="4">V4</option>
-                      <option value="5">V5</option>
-                      <option value="6">V6</option>
-                      <option value="7">V7</option>
-                      <option value="8">V8</option>
-                      <option value="9">V9</option>
+                      <option value="V1">V1</option>
+                      <option value="V3">V3</option>
+                      <option value="V4">V4</option>
+                      <option value="V5">V5</option>
+                      <option value="V6">V6</option>
+                      <option value="V7">V7</option>
+                      <option value="V8">V8</option>
+                      <option value="V9">V9</option>
                     </select>
                     <button
-                      onClick={(e) => addView(e.target.id)}
+                      onClick={(e) => addView(e)}
                       type="button"
                       id="menuOne"
+                      className="btn btn-primary"
                     >
                       Add
                     </button>
                     <select className="form-select">
-                      <option value="1">V1</option>
-                      <option value="3">V3</option>
-                      <option value="4">V4</option>
-                      <option value="5">V5</option>
-                      <option value="6">V6</option>
-                      <option value="7">V7</option>
-                      <option value="8">V8</option>
-                      <option value="9">V9</option>
+                      <option value="V1">V1</option>
+                      <option value="V3">V3</option>
+                      <option value="V4">V4</option>
+                      <option value="V5">V5</option>
+                      <option value="V6">V6</option>
+                      <option value="V7">V7</option>
+                      <option value="V8">V8</option>
+                      <option value="V9">V9</option>
                     </select>
                     <button
-                      onClick={(e) => addView(e.target.id)}
+                      onClick={(e) => addView(e)}
                       type="button"
-                      id="menuOne"
+                      id="menuTwo"
+                      className="btn btn-primary"
                     >
                       Add
                     </button>
                   </div>
                 </div>
               )}
+            </div>
+            <div>
+              <ul className="list-group">
+                {firstColumn.length > 0 ? (
+                  firstColumn.map((item) => (
+                    <li
+                      className="list-group-item"
+                      key={item.position + " first"}
+                    >
+                      {item.graph}
+                    </li>
+                  ))
+                ) : (
+                  <></>
+                )}
+              </ul>
+            </div>
+            <div>
+              <ul className="list-group">
+                {secondColumn.length > 0 ? (
+                  secondColumn.map((item) => (
+                    <li
+                      className="list-group-item"
+                      key={item.position + " second"}
+                    >
+                      {item.graph}
+                    </li>
+                  ))
+                ) : (
+                  <></>
+                )}
+              </ul>
             </div>
             <div className="col-12">
               <button
@@ -177,7 +236,7 @@ export default function N3() {
               >
                 Cancel
               </button>
-              <button className="btn btn-primary" type="submit" onSubmit={save}>
+              <button className="btn btn-primary" type="button" onSubmit={save}>
                 Save
               </button>
             </div>
