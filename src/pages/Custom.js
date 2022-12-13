@@ -1,38 +1,38 @@
 import React from "react";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import NotFound from "./NotFound";
 import { V1, V3, V4, V5, V6, V7, V8, V9 } from "../components";
 import "../styles/custom.css";
+import { useEffect } from "react";
+import axios from "axios";
 
-const dummy = {
-  viewName: "First View",
-  first: [
-    { position: 1, graph: "V1" },
-    { position: 2, graph: "V5" },
-    { position: 2, graph: "V7" },
-  ],
-  second: [
-    { position: 1, graph: "V5" },
-    { position: 2, graph: "V5" },
-  ],
-};
+const URL = "http://localhost:3001/";
 
 export default function Custom() {
+  const routeParams = useParams();
   const [notFound, setNotFound] = useState(true);
   const [viewJson, setViewJson] = useState();
 
-  // make /get call to backend
-  // check if URL has matching View
-  // if yes -> retrieve View from database and store as State variable
-  // set notFound to false
-  // loop through the viewJson variable to create custom view (replace "dummy" by "viewJson")
+  useEffect(() => {
+    axios
+      .get(URL + "view/" + routeParams.id)
+      .then((response) => {
+        setViewJson(response.data[0].viewjson);
+        console.log(response.data[0].viewjson);
+        setNotFound(false);
+      })
+      .catch((error) => {
+        alert(error.response.data.error);
+      });
+  }, []);
 
   if (notFound) return <NotFound />;
 
-  if (dummy.second.length < 1)
+  if (viewJson.second.length < 1)
     return (
       <div className="visualizations">
-        {dummy.first.map((item) => {
+        {viewJson.first.map((item) => {
           switch (item.graph) {
             case "V1":
               return <V1 />;
@@ -57,11 +57,11 @@ export default function Custom() {
       </div>
     );
 
-  if (dummy.second.length > 0)
+  if (viewJson.second.length > 0)
     return (
       <div className="twoColumns">
         <div className="customColumn">
-          {dummy.first.map((item) => {
+          {viewJson.first.map((item) => {
             switch (item.graph) {
               case "V1":
                 return <V1 />;
@@ -85,7 +85,7 @@ export default function Custom() {
           })}
         </div>
         <div className="customColumn">
-          {dummy.second.map((item) => {
+          {viewJson.second.map((item) => {
             switch (item.graph) {
               case "V1":
                 return <V1 />;

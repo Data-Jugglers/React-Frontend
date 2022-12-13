@@ -1,6 +1,13 @@
+import axios from "axios";
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import "../styles/personalView.css";
+
+const URL = "http://localhost:3001/";
+
+// needs to be changed to use actual USER ID
+const user_id = 1;
 
 export default function N3() {
   const [openForm, setOpenForm] = useState(false);
@@ -10,8 +17,26 @@ export default function N3() {
   const [secondColumn, setSecondColumn] = useState([]);
   const [ownViews, setOwnViews] = useState();
 
-  // Create function to make a backend call and retrieve personal views
-  // Store in "ownViews" and render
+  const findOwnViews = async (response) => {
+    const ownViewArray = response.filter((item) => {
+      // Needs to compare ACTUAL USER ID
+      if (item.user_id === user_id) return true;
+      else return false;
+    });
+    console.log(ownViewArray);
+    setOwnViews(ownViewArray);
+  };
+
+  useEffect(() => {
+    axios
+      .get(URL + "view")
+      .then((response) => {
+        findOwnViews(response.data);
+      })
+      .catch((error) => {
+        alert(error.response.data.error);
+      });
+  }, []);
 
   const changeState = () => {
     switch (openForm) {
@@ -84,26 +109,30 @@ export default function N3() {
   };
 
   const save = () => {
-    // save first form info
-    if (secondColumn.length < 1) {
-      const savedView = {
-        viewName: viewName,
-        first: firstColumn,
-      };
-      // Implement axios put here or call axios function
-      // send JSON to backend where a access url will be created for it
-      // Whole JSON will be stored in Personal View Database
-    } else {
-      const savedView = {
-        viewName: viewName,
-        first: firstColumn,
-        second: secondColumn,
-      };
-      // Implement axios put here or call axios function
-      // send JSON to backend where a access url will be created for it
-      // Whole JSON will be stored in Personal View Database
-    }
+    const savedView = {
+      viewName: viewName,
+      first: firstColumn,
+      second: secondColumn,
+    };
+    const json = JSON.stringify(savedView);
+    axios
+      .post(URL + "view", json, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .catch((error) => {
+        alert(error.response.data.error);
+      });
     window.location.reload();
+  };
+
+  const deleteView = () => {
+    // axios delte here
+  };
+
+  const copy = () => {
+    // copy url + viewID to clipboard
   };
 
   return (
@@ -272,6 +301,23 @@ export default function N3() {
             <p></p>
           )}
         </div>
+      </div>
+      <div>
+        {ownViews ? (
+          ownViews.map((view) => (
+            <div>
+              <button className="m-2" onClick={deleteView}>
+                Delete
+              </button>
+              <button className="m-2">{view.viewjson.viewName}</button>
+              <button className="m-2" onClick={copy}>
+                Copy
+              </button>
+            </div>
+          ))
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
