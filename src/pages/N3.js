@@ -6,9 +6,6 @@ import "../styles/personalView.css";
 
 const URL = "http://localhost:3001/";
 
-// needs to be changed to use actual USER ID
-const user_id = 1;
-
 export default function N3() {
   const [openForm, setOpenForm] = useState(false);
   const [oneColumn, setOneColumn] = useState(true);
@@ -19,11 +16,11 @@ export default function N3() {
 
   const findOwnViews = async (response) => {
     const ownViewArray = response.filter((item) => {
-      // Needs to compare ACTUAL USER ID
-      if (item.user_id === user_id) return true;
+      if (item.user_id.toString() === sessionStorage.getItem("id")) return true;
       else return false;
     });
-    console.log(ownViewArray);
+    console.log(response);
+    console.log(sessionStorage.getItem("id"));
     setOwnViews(ownViewArray);
   };
 
@@ -116,7 +113,7 @@ export default function N3() {
     };
     const json = JSON.stringify(savedView);
     axios
-      .post(URL + "view", json, {
+      .post(URL + "view/" + sessionStorage.getItem("id"), json, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -127,12 +124,18 @@ export default function N3() {
     window.location.reload();
   };
 
-  const deleteView = () => {
+  const deleteView = (viewID) => {
     // axios delte here
+    axios.delete(URL + "view/" + viewID).catch((error) => {
+      alert(error.response.data.error);
+    });
+    window.location.reload();
   };
 
-  const copy = () => {
+  const copy = (viewID) => {
     // copy url + viewID to clipboard
+    const link = "http://localhost:3000/view/" + viewID;
+    navigator.clipboard.writeText(link);
   };
 
   return (
@@ -306,11 +309,21 @@ export default function N3() {
         {ownViews ? (
           ownViews.map((view) => (
             <div>
-              <button className="m-2" onClick={deleteView}>
+              <button
+                className="m-2"
+                onClick={(e) => deleteView(e.target.value)}
+                value={view.view_id}
+              >
                 Delete
               </button>
-              <button className="m-2">{view.viewjson.viewName}</button>
-              <button className="m-2" onClick={copy}>
+              <a href={"http://localhost:3000/view/" + view.view_id}>
+                <button className="m-2">{view.viewjson.viewName}</button>
+              </a>
+              <button
+                className="m-2"
+                onClick={(e) => copy(e.target.value)}
+                value={view.view_id}
+              >
                 Copy
               </button>
             </div>
