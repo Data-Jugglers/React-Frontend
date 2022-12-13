@@ -7,6 +7,10 @@ export default function N3() {
   const [viewName, setViewName] = useState("");
   const [firstColumn, setFirstColumn] = useState([]);
   const [secondColumn, setSecondColumn] = useState([]);
+  const [ownViews, setOwnViews] = useState();
+
+  // Create function to make a backend call and retrieve personal views
+  // Store in "ownViews" and render
 
   const changeState = () => {
     switch (openForm) {
@@ -85,16 +89,18 @@ export default function N3() {
         viewName: viewName,
         first: firstColumn,
       };
-      console.log(savedView);
       // Implement axios put here or call axios function
+      // send JSON to backend where a access url will be created for it
+      // Whole JSON will be stored in Personal View Database
     } else {
       const savedView = {
         viewName: viewName,
         first: firstColumn,
         second: secondColumn,
       };
-      console.log(savedView);
       // Implement axios put here or call axios function
+      // send JSON to backend where a access url will be created for it
+      // Whole JSON will be stored in Personal View Database
     }
     // window.location.reload();
   };
