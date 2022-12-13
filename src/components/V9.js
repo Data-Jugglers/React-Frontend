@@ -50,12 +50,6 @@ export default function V9() {
       }
     }
   }
-  const options = {
-    responsive: true,
-
-    borderWidth: 1,
-    pointRadius: 0,
-  };
 
   if (isLoading) {
     return <p>Loading... </p>;
