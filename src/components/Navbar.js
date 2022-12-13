@@ -15,8 +15,8 @@ export default function Navbar() {
           password: password,
         })
         .then((response) => {
-          sessionStorage.setItem("token", response.data.token);
-          sessionStorage.setItem("username", response.data.username);
+          sessionStorage.setItem("token", response.data.accessToken);
+          sessionStorage.setItem("username", response.data.userName);
           sessionStorage.setItem("id", response.data.id);
           setIsLoggedIn(true);
           // console.log(response);
