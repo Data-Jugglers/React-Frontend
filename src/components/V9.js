@@ -52,15 +52,7 @@ export default function V9() {
   }
   const options = {
     responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
-      },
-      title: {
-        display: true,
-        text: "Atmospheric CO2 concentrations",
-      },
-    },
+
     borderWidth: 1,
     pointRadius: 0,
   };
@@ -76,6 +68,18 @@ export default function V9() {
               let dataIndex = activeEls[0].index;
               let label = e.chart.data.labels[dataIndex];
               switchData(label);
+            },
+            plugins: {
+              legend: {
+                position: "top",
+              },
+              title: {
+                display: true,
+                text: "CO2 emission by country",
+                font: {
+                  size: 18,
+                },
+              },
             },
           }}
           data={{
