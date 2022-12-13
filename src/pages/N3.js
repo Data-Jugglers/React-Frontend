@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import "../styles/personalView.css";
 
 export default function N3() {
   const [openForm, setOpenForm] = useState(false);
@@ -102,82 +103,61 @@ export default function N3() {
       // send JSON to backend where a access url will be created for it
       // Whole JSON will be stored in Personal View Database
     }
-    // window.location.reload();
+    window.location.reload();
   };
 
   return (
-    <>
-      <button
-        type="button"
-        className="btn btn-outline-dark"
-        onClick={changeState}
-      >
-        Create View
-      </button>
-      <div>
-        {openForm ? (
-          <form className="row g-3">
-            <div className="col-md-4">
-              <label className="form-label">Name of view</label>
-              <input
-                type="text"
-                className="form-control"
-                id="NameOfView"
-                value={viewName}
-                onChange={(e) => setViewName(e.target.value)}
-                required
-              />
-            </div>
-            <div className="col-12">
-              <div className="form-check">
+    <div className="personalView">
+      <div className="addView">
+        <button
+          type="button"
+          className="btn btn-outline-dark"
+          onClick={changeState}
+        >
+          Create View
+        </button>
+        <div>
+          {openForm ? (
+            <form className="row g-3">
+              <div className="col-md-4">
+                <label className="form-label">Name of view</label>
                 <input
-                  type="radio"
-                  className="form-check-input"
-                  id="ColumnCheck1"
-                  name="radio-stacked"
+                  type="text"
+                  className="form-control"
+                  id="NameOfView"
+                  value={viewName}
+                  onChange={(e) => setViewName(e.target.value)}
                   required
-                  onClick={(e) => changeColumn(e.target.id)}
                 />
-                <label className="form-check-label">One column</label>
               </div>
-              <div className="form-check mb-3">
-                <input
-                  type="radio"
-                  className="form-check-input"
-                  id="ColumnCheck2"
-                  name="radio-stacked"
-                  required
-                  onClick={(e) => changeColumn(e.target.id)}
-                />
-                <label className="form-check-label">Two columns</label>
-              </div>
-            </div>
-            <div>
-              {oneColumn ? (
-                <div>
-                  <select className="form-select">
-                    <option value="V1">V1</option>
-                    <option value="V3">V3</option>
-                    <option value="V4">V4</option>
-                    <option value="V5">V5</option>
-                    <option value="V6">V6</option>
-                    <option value="V7">V7</option>
-                    <option value="V8">V8</option>
-                    <option value="V9">V9</option>
-                  </select>
-                  <button
-                    onClick={(e) => addView(e)}
-                    type="button"
-                    id="menuOne"
-                    className="btn btn-primary"
-                  >
-                    Add
-                  </button>
+              <div className="col-12">
+                <div className="form-check">
+                  <input
+                    type="radio"
+                    className="form-check-input"
+                    id="ColumnCheck1"
+                    name="radio-stacked"
+                    required
+                    onClick={(e) => changeColumn(e.target.id)}
+                  />
+                  <label className="form-check-label">One column</label>
                 </div>
-              ) : (
-                <div>
+                <div className="form-check mb-3">
+                  <input
+                    type="radio"
+                    className="form-check-input"
+                    id="ColumnCheck2"
+                    name="radio-stacked"
+                    required
+                    onClick={(e) => changeColumn(e.target.id)}
+                  />
+                  <label className="form-check-label">Two columns</label>
+                </div>
+              </div>
+              <div className="col-12">
+                {oneColumn ? (
                   <div>
-                    <select className="form-select">
+                    <select className="form-select row-12 m-3 p-2">
                       <option value="V1">V1</option>
                       <option value="V3">V3</option>
                       <option value="V4">V4</option>
@@ -195,77 +175,104 @@ export default function N3() {
                     >
                       Add
                     </button>
-                    <select className="form-select">
-                      <option value="V1">V1</option>
-                      <option value="V3">V3</option>
-                      <option value="V4">V4</option>
-                      <option value="V5">V5</option>
-                      <option value="V6">V6</option>
-                      <option value="V7">V7</option>
-                      <option value="V8">V8</option>
-                      <option value="V9">V9</option>
-                    </select>
-                    <button
-                      onClick={(e) => addView(e)}
-                      type="button"
-                      id="menuTwo"
-                      className="btn btn-primary"
-                    >
-                      Add
-                    </button>
                   </div>
-                </div>
-              )}
-            </div>
-            <div>
-              <ul className="list-group">
-                {firstColumn.length > 0 ? (
-                  firstColumn.map((item) => (
-                    <li
-                      className="list-group-item"
-                      key={item.position + " first"}
-                    >
-                      {item.graph}
-                    </li>
-                  ))
                 ) : (
-                  <></>
+                  <div>
+                    <div>
+                      <select className="form-select row-12 m-3 p-2">
+                        <option value="V1">V1</option>
+                        <option value="V3">V3</option>
+                        <option value="V4">V4</option>
+                        <option value="V5">V5</option>
+                        <option value="V6">V6</option>
+                        <option value="V7">V7</option>
+                        <option value="V8">V8</option>
+                        <option value="V9">V9</option>
+                      </select>
+                      <button
+                        onClick={(e) => addView(e)}
+                        type="button"
+                        id="menuOne"
+                        className="btn btn-primary mr-4"
+                      >
+                        Add
+                      </button>
+                      <select className="form-select row-12 m-3 p-2">
+                        <option value="V1">V1</option>
+                        <option value="V3">V3</option>
+                        <option value="V4">V4</option>
+                        <option value="V5">V5</option>
+                        <option value="V6">V6</option>
+                        <option value="V7">V7</option>
+                        <option value="V8">V8</option>
+                        <option value="V9">V9</option>
+                      </select>
+                      <button
+                        onClick={(e) => addView(e)}
+                        type="button"
+                        id="menuTwo"
+                        className="btn btn-primary"
+                      >
+                        Add
+                      </button>
+                    </div>
+                  </div>
                 )}
-              </ul>
-            </div>
-            <div>
-              <ul className="list-group">
-                {secondColumn.length > 0 ? (
-                  secondColumn.map((item) => (
-                    <li
-                      className="list-group-item"
-                      key={item.position + " second"}
-                    >
-                      {item.graph}
-                    </li>
-                  ))
-                ) : (
-                  <></>
-                )}
-              </ul>
-            </div>
-            <div className="col-12">
-              <button
-                className="btn btn-secondary"
-                type="button"
-                onClick={cancel}
-              >
-                Cancel
-              </button>
-              <button className="btn btn-primary" type="button" onClick={save}>
-                Save
-              </button>
-            </div>
-          </form>
-        ) : (
-          <p></p>
-        )}
+              </div>
+              <div className="form-check mr-5 mb-5">
+                <ul className="list-group">
+                  {firstColumn.length > 0 ? (
+                    firstColumn.map((item) => (
+                      <li
+                        className="list-group-item"
+                        key={item.position + " first"}
+                      >
+                        {item.graph}
+                      </li>
+                    ))
+                  ) : (
+                    <></>
+                  )}
+                </ul>
+              </div>
+              <div className="form-check">
+                <ul className="list-group">
+                  {secondColumn.length > 0 ? (
+                    secondColumn.map((item) => (
+                      <li
+                        className="list-group-item"
+                        key={item.position + " second"}
+                      >
+                        {item.graph}
+                      </li>
+                    ))
+                  ) : (
+                    <></>
+                  )}
+                </ul>
+              </div>
+              <div className="col-12">
+                <button
+                  className="btn btn-secondary mr-5"
+                  type="button"
+                  onClick={cancel}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="btn btn-primary"
+                  type="button"
+                  onClick={save}
+                >
+                  Save
+                </button>
+              </div>
+            </form>
+          ) : (
+            <p></p>
+          )}
+        </div>
       </div>
-    </>
+    </div>
   );
 }
