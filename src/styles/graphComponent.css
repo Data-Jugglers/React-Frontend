@@ -3,6 +3,7 @@
   flex-flow: column;
   width: 100%;
   gap: 10px;
+  margin-bottom: 50px;
 }
 /* this is for the chart itself to be responsive */
 .graph {
