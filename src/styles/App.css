@@ -71,3 +71,7 @@ footer {
 .dropdown {
   align-items: flex-end;
 }
+.popup {
+  border-style: solid;
+  background-color: yellow;
+}
