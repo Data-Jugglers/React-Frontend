@@ -85,6 +85,7 @@ export default function N3() {
         viewName: viewName,
         first: firstColumn,
       };
+      console.log(savedView);
       // Implement axios put here or call axios function
     } else {
       const savedView = {
@@ -92,9 +93,10 @@ export default function N3() {
         first: firstColumn,
         second: secondColumn,
       };
+      console.log(savedView);
       // Implement axios put here or call axios function
     }
-    window.location.reload();
+    // window.location.reload();
   };
 
   return (

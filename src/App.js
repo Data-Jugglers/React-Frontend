@@ -1,7 +1,7 @@
 import "./styles/App.css";
 import { Routes, Route } from "react-router-dom";
 import { Footer, Header, Navbar } from "./components";
-import { N1, N2, N3, About, NotFound } from "./pages";
+import { N1, N2, N3, About, Custom } from "./pages";
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
           <Route path="/N3" element={<N3 />} />
           <Route path="/N2" element={<N2 />} />
           <Route path="/About" element={<About />} />
-          <Route path="/*" element={<NotFound />} />
+          <Route path="/*" element={<Custom />} />
         </Routes>
       </div>
       <Footer />
