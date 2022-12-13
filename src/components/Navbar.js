@@ -19,7 +19,6 @@ export default function Navbar() {
           sessionStorage.setItem("username", response.data.userName);
           sessionStorage.setItem("id", response.data.id);
           setIsLoggedIn(true);
-          // console.log(response);
           setUserName("");
           setPassword("");
         })
@@ -59,14 +58,24 @@ export default function Navbar() {
     }
   }
   async function deleteUser() {
-    const response = await axios.delete("http://localhost:3001/user/", {
-      data: { id: sessionStorage.getItem("id") },
-    });
-    console.log(response);
-    setIsLoggedIn(false);
-    sessionStorage.setItem("token", "");
-    sessionStorage.setItem("username", "");
-    sessionStorage.setItem("id", "");
+    try {
+      await axios
+        .delete("http://localhost:3001/user/", {
+          data: { id: sessionStorage.getItem("id") },
+        })
+        .then((response) => {
+          setIsLoggedIn(false);
+          sessionStorage.setItem("token", "");
+          sessionStorage.setItem("username", "");
+          sessionStorage.setItem("id", "");
+          alert("User account deleted!");
+        })
+        .catch((error) => {
+          alert("Couldn't delete user");
+        });
+    } catch {
+      alert("Couldn't delete user");
+    }
   }
   return (
     <nav id="nav" class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
@@ -198,18 +207,22 @@ export default function Navbar() {
                       </Popup>
                     </a>
                   )}
-                  <a class="dropdown-item" href="/N3">
-                    Your Views
-                  </a>
-                  <a
-                    class="dropdown-item"
-                    href="#"
-                    onClick={function () {
-                      deleteUser();
-                    }}
-                  >
-                    Delete User
-                  </a>
+                  {isLoggedIn && (
+                    <a class="dropdown-item" href="/N3">
+                      Your Views
+                    </a>
+                  )}
+                  {isLoggedIn && (
+                    <a
+                      class="dropdown-item"
+                      href="#"
+                      onClick={function () {
+                        deleteUser();
+                      }}
+                    >
+                      Delete User
+                    </a>
+                  )}
                 </div>
               </div>
             </li>
