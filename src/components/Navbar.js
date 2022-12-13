@@ -8,25 +8,39 @@ export default function Navbar() {
   const [password, setPassword] = React.useState("");
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   async function clearAndLogin() {
-    const response = await axios.post("http://localhost:3001/login", {
-      username: userName,
-      password: password,
-    });
-    console.log(response.data);
-    sessionStorage.setItem("token", response.data.token);
-    sessionStorage.setItem("username", response.data.username);
-    sessionStorage.setItem("id", response.data.id);
-    setIsLoggedIn(true);
-    // console.log(response);
-    setUserName("");
-    setPassword("");
+    try {
+      await axios
+        .post("http://localhost:3001/login", {
+          username: userName,
+          password: password,
+        })
+        .then((response) => {
+          sessionStorage.setItem("token", response.data.token);
+          sessionStorage.setItem("username", response.data.username);
+          sessionStorage.setItem("id", response.data.id);
+          setIsLoggedIn(true);
+          // console.log(response);
+          setUserName("");
+          setPassword("");
+        })
+        .catch((error) => {
+          if (error.response.status === 400 || error.response.status === 403) {
+            alert(error.response.data);
+          } else {
+            alert("Server Error");
+          }
+        });
+    } catch (error) {
+      alert(error);
+    }
   }
+
   async function clearAndSignup() {
     const response = await axios.post("http://localhost:3001/signup", {
       username: userName,
       password: password,
     });
-    console.log(response);
+
     setUserName("");
     setPassword("");
   }
@@ -95,7 +109,7 @@ export default function Navbar() {
                           <label>Enter Full Name </label>
                           <input
                             type="text"
-                            placeholder="Enter your full name here"
+                            placeholder="Enter username here"
                             id="t1"
                             class="tb"
                             required
@@ -136,7 +150,7 @@ export default function Navbar() {
                           <label>Enter Full Name </label>
                           <input
                             type="text"
-                            placeholder="Enter your full name here"
+                            placeholder="Enter username here"
                             id="t1"
                             class="tb"
                             required
