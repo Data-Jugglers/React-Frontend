@@ -36,13 +36,27 @@ export default function Navbar() {
   }
 
   async function clearAndSignup() {
-    const response = await axios.post("http://localhost:3001/signup", {
-      username: userName,
-      password: password,
-    });
-
-    setUserName("");
-    setPassword("");
+    try {
+      await axios
+        .post("http://localhost:3001/signup", {
+          username: userName,
+          password: password,
+        })
+        .then((response) => {
+          setUserName("");
+          setPassword("");
+          alert("User account created!");
+        })
+        .catch((error) => {
+          if (error.response.status === 400 || error.response.status === 403) {
+            alert(error.response.data);
+          } else {
+            alert("Server Error");
+          }
+        });
+    } catch (error) {
+      alert(error);
+    }
   }
   async function deleteUser() {
     const response = await axios.delete("http://localhost:3001/user/", {
