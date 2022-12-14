@@ -7,6 +7,7 @@ export default function Navbar() {
   const [userName, setUserName] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [header, setHeader] = React.useState({});
   async function clearAndLogin() {
     try {
       await axios
@@ -21,6 +22,10 @@ export default function Navbar() {
           setIsLoggedIn(true);
           setUserName("");
           setPassword("");
+          setHeader({
+            authorization:
+              response.data.userName + " " + response.data.accessToken,
+          });
         })
         .catch((error) => {
           if (error.response.status === 400 || error.response.status === 403) {
@@ -62,6 +67,7 @@ export default function Navbar() {
       await axios
         .delete("http://localhost:3001/user/", {
           data: { id: sessionStorage.getItem("id") },
+          headers: header,
         })
         .then((response) => {
           setIsLoggedIn(false);

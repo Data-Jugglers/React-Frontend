@@ -105,30 +105,44 @@ export default function N3() {
     }
   };
 
-  const save = () => {
+  const save = async () => {
     const savedView = {
       viewName: viewName,
       first: firstColumn,
       second: secondColumn,
     };
     const json = JSON.stringify(savedView);
-    axios
+    await axios
       .post(URL + "view/" + sessionStorage.getItem("id"), json, {
         headers: {
           "Content-Type": "application/json",
+          authorization:
+            sessionStorage.getItem("username") +
+            " " +
+            sessionStorage.getItem("token"),
         },
       })
       .catch((error) => {
-        alert(error.response.data.error);
+        // alert(error.response.data.error);
+        alert(error);
       });
     window.location.reload();
   };
 
   const deleteView = (viewID) => {
     // axios delte here
-    axios.delete(URL + "view/" + viewID).catch((error) => {
-      alert(error.response.data.error);
-    });
+    axios
+      .delete(URL + "view/" + viewID, {
+        headers: {
+          authorization:
+            sessionStorage.getItem("username") +
+            " " +
+            sessionStorage.getItem("token"),
+        },
+      })
+      .catch((error) => {
+        alert(error.response.data.error);
+      });
     window.location.reload();
   };
 
