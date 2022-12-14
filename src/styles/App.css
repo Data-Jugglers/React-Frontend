@@ -75,3 +75,7 @@ footer {
   border-style: solid;
   background-color: yellow;
 }
+
+.popupTrigger {
+  width: 100%;
+}

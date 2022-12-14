@@ -127,7 +127,10 @@ export default function Navbar() {
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   {!isLoggedIn && (
                     <a class="dropdown-item" href="#">
-                      <Popup trigger={<a>Login</a>} position="right center">
+                      <Popup
+                        trigger={<div class="popupTrigger">Login</div>}
+                        position="right center"
+                      >
                         <div className="popup">
                           <label>Enter Full Name </label>
                           <input
@@ -168,7 +171,10 @@ export default function Navbar() {
                   )}
                   {!isLoggedIn && (
                     <a class="dropdown-item" href="#">
-                      <Popup trigger={<a>Signup</a>} position="right center">
+                      <Popup
+                        trigger={<div class="popupTrigger">Signup</div>}
+                        position="right center"
+                      >
                         <div className="popup">
                           <label>Enter Full Name </label>
                           <input
